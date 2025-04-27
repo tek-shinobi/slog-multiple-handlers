@@ -1,4 +1,5 @@
 //go:build !skip
+// +build !skip
 
 package main
 
