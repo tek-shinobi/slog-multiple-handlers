@@ -1,65 +1,3 @@
-# slog multiple handlers
-[![codecov](https://codecov.io/gh/tek-shinobi/slog-multiple-handlers/graph/badge.svg?token=RY9XFA15X9)](https://codecov.io/gh/tek-shinobi/slog-multiple-handlers)
-
-## The Why?
-### Use this package to:
-1. Allow multiple handlers to be used in a single logger
-2. Allow routing of error logs to a specified handlers
-3. Allow routing of non-error logs to a specified handlers
-
-
-
-## The How?
-```mermaid
-flowchart-elk TD
-    subgraph Application
-            L[Log Line Created]
-    end
-    subgraph "slog-multiple-handlers"
-            subgraph "error handlers..." 
-                    subgraph "error handler 1" 
-                        E1[Error Handler 1]
-                    end
-                    subgraph "error handler 2" 
-                        E2[Error Handler 2]
-                    end
-                
-            end
-            subgraph "non-error handlers..."
-                    subgraph "non-error handler 1"
-                        N1[Non-Error Handler 1]
-                    end
-                    subgraph "non-error handler 2"
-                        N2[Non-Error Handler 2]
-                    end
-            end
-    end
-    EL[Error Log Line]
-    NL[Non-Error Log Line]
-        
-    L --> IE{Is Error?}
-        
-    IE -->|Yes| EL
-    IE -->|No| NL
-        
-    EL --> E1
-    EL --> E2
-        
-    NL --> N1
-    NL --> N2
-```
-
-## Usage
-### Example 1: 
- - Non-error logs goto `stdout` 
- - Error logs goto `stderr` 
-
-### Example 2:
-- All logs goto `stdout`
-- Error logs goto `stderr` 
-
-
-```go
 package main
 
 import (
@@ -109,4 +47,3 @@ func example2() {
 	// {"time":"2025-04-27T14:10:47.727057508+03:00","level":"ERROR","msg":"error message","example-2":{"error":"error message"}} <-- stdout
 	// {"time":"2025-04-27T14:10:47.727057508+03:00","level":"ERROR","msg":"error message","example-2":{"error":"error message"}} <-- stderr
 }
-```
