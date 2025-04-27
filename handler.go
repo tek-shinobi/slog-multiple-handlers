@@ -15,11 +15,17 @@ type MultiTargetHandler struct {
 
 var _ slog.Handler = (*MultiTargetHandler)(nil)
 
-func New(outputHandlers []slog.Handler, errorOutputHandlers []slog.Handler) *MultiTargetHandler {
-	h := &MultiTargetHandler{
-		outputHandlers:      outputHandlers,
-		errorOutputHandlers: errorOutputHandlers,
-	}
+func New() *MultiTargetHandler {
+	return &MultiTargetHandler{}
+}
+
+func (h *MultiTargetHandler) WithOutputHandlers(handlers ...slog.Handler) *MultiTargetHandler {
+	h.outputHandlers = handlers
+	return h
+}
+
+func (h *MultiTargetHandler) WithErrorOutputHandlers(handlers ...slog.Handler) *MultiTargetHandler {
+	h.errorOutputHandlers = handlers
 	return h
 }
 

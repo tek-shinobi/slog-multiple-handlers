@@ -87,10 +87,11 @@ func main() {
 func example1() {
 	outputHandler := slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo})
 	errorOutputHandler := slog.NewJSONHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelError})
-	sMultiTargetHandler := slogmultiplehandlers.New(
-		[]slog.Handler{outputHandler},      // all targets for non-error logs
-		[]slog.Handler{errorOutputHandler}, // all targets for error logs
-	)
+
+	sMultiTargetHandler := slogmultiplehandlers.New().
+		WithOutputHandlers(outputHandler).
+		WithErrorOutputHandlers(errorOutputHandler)
+
 	logger := slog.New(sMultiTargetHandler).WithGroup("example-1")
 	logger.Info("info message", slog.String("key", "value"))
 	logger.Error("error message", slog.Any("error", errors.New("error message")))
@@ -104,10 +105,11 @@ func example1() {
 func example2() {
 	outputHandler := slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo})
 	errorOutputHandler := slog.NewJSONHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelError})
-	sMultiTargetHandler := slogmultiplehandlers.New(
-		[]slog.Handler{outputHandler},                     // all targets for non-error logs
-		[]slog.Handler{outputHandler, errorOutputHandler}, // all targets for error logs
-	)
+
+	sMultiTargetHandler := slogmultiplehandlers.New().
+		WithOutputHandlers(outputHandler).
+		WithErrorOutputHandlers(outputHandler, errorOutputHandler)
+
 	logger := slog.New(sMultiTargetHandler).WithGroup("example-2")
 	logger.Info("info message", slog.String("key", "value"))
 	logger.Error("error message", slog.Any("error", errors.New("error message")))
