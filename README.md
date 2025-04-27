@@ -2,15 +2,21 @@
 [![codecov](https://codecov.io/gh/tek-shinobi/slog-multiple-handlers/graph/badge.svg?token=RY9XFA15X9)](https://codecov.io/gh/tek-shinobi/slog-multiple-handlers)
 [![Go Report Card](https://goreportcard.com/badge/github.com/tek-shinobi/slog-multiple-handlers)](https://goreportcard.com/report/github.com/tek-shinobi/slog-multiple-handlers)
 
-## ❓ The Why?
-### Use this package to:
-1. Allow multiple handlers to be used in a single logger
-2. Allow routing of error logs to a specified handlers
-3. Allow routing of non-error logs to a specified handlers
+## 🙆‍♀️ The Why?
+Slog is a great logging library, but it has a limitation: it can only route logs to one handler.
 
+## 🎉 Use this package to:
+- ✅ Route logs to multiple handlers
+- ✅ Allow routing of error logs to specified handlers
+- ✅ Allow routing of non-error logs to specified handlers
 
+## 🚀 Install
 
-## The How?
+```sh
+go get github.com/tek-shinobi/slog-multiple-handlers
+```
+
+## 🔮 The How?
 ```mermaid
 flowchart-elk TD
     subgraph Application
@@ -50,7 +56,7 @@ flowchart-elk TD
     NL --> N2
 ```
 
-## Usage
+## 📚 Usage
 ### Example 1: 
  - Non-error logs goto `stdout` 
  - Error logs goto `stderr` 
