@@ -89,8 +89,8 @@ func example1() {
 	errorOutputHandler := slog.NewJSONHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelError})
 
 	sMultiTargetHandler := slogmultiplehandlers.New().
-		WithOutputHandlers(outputHandler).
-		WithErrorOutputHandlers(errorOutputHandler)
+		WithOutputHandlers(outputHandler).  // comma separated list of slog.Handler 
+		WithErrorOutputHandlers(errorOutputHandler) // comma separated list of slog.Handler
 
 	logger := slog.New(sMultiTargetHandler).WithGroup("example-1")
 	logger.Info("info message", slog.String("key", "value"))
@@ -107,8 +107,8 @@ func example2() {
 	errorOutputHandler := slog.NewJSONHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelError})
 
 	sMultiTargetHandler := slogmultiplehandlers.New().
-		WithOutputHandlers(outputHandler).
-		WithErrorOutputHandlers(outputHandler, errorOutputHandler)
+		WithOutputHandlers(outputHandler).   // comma separated list of slog.Handler
+		WithErrorOutputHandlers(outputHandler, errorOutputHandler)   // comma separated list of slog.Handler
 
 	logger := slog.New(sMultiTargetHandler).WithGroup("example-2")
 	logger.Info("info message", slog.String("key", "value"))
