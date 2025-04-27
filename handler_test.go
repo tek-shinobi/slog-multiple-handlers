@@ -22,12 +22,10 @@ func TestMultiTargetHandler(t *testing.T) {
 			Level: slog.LevelError,
 		})
 
-		handler := slogmultiplehandlers.New(
-			[]slog.Handler{standardHandler},
-			[]slog.Handler{errorHandler},
-		)
-
-		logger := slog.New(handler)
+		logger := slogmultiplehandlers.New().
+			WithOutputHandlers(standardHandler).
+			WithErrorOutputHandlers(errorHandler).
+			Logger()
 
 		logger.Info("info message")
 		logger.Error("error message")
@@ -62,12 +60,13 @@ func TestMultiTargetHandler(t *testing.T) {
 			Level: slog.LevelError,
 		})
 
-		handler := slogmultiplehandlers.New(
-			[]slog.Handler{standardHandler},
-			[]slog.Handler{errorHandler},
-		)
+		handler := slogmultiplehandlers.New().
+			WithOutputHandlers(standardHandler).
+			WithErrorOutputHandlers(errorHandler)
 
 		withAttrs := handler.WithAttrs([]slog.Attr{slog.String("testattr", "testvalue")})
+		// Note: due to WithAttrs returning slog.Handler, beyond this point Logger() is not available.
+		// Use slog.New() instead to generate a logger
 		withGroups := withAttrs.WithGroup("testgroup")
 
 		logger := slog.New(withGroups)
