@@ -1,6 +1,7 @@
 # slog multiple handlers
 [![codecov](https://codecov.io/gh/tek-shinobi/slog-multiple-handlers/graph/badge.svg?token=RY9XFA15X9)](https://codecov.io/gh/tek-shinobi/slog-multiple-handlers)
 [![Go Report Card](https://goreportcard.com/badge/github.com/tek-shinobi/slog-multiple-handlers)](https://goreportcard.com/report/github.com/tek-shinobi/slog-multiple-handlers)
+![Build Status](https://github.com/tek-shinobi/slog-multiple-handlers/blob/main/.github/workflows/ci.yaml/badge.svg)
 
 ## 🙆‍♀️ The Why?
 Slog is a great logging library, but it has a limitation: it can only route logs to one handler.
