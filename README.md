@@ -88,11 +88,12 @@ func example1() {
 	outputHandler := slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo})
 	errorOutputHandler := slog.NewJSONHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelError})
 
-	sMultiTargetHandler := slogmultiplehandlers.New().
-		WithOutputHandlers(outputHandler).
-		WithErrorOutputHandlers(errorOutputHandler)
+	logger := slogmultiplehandlers.New().
+		WithOutputHandlers(outputHandler). // comma separated list of handlers
+		WithErrorOutputHandlers(errorOutputHandler). // comma separated list of handlers
+		Logger() // always end the factory builder with Logger() to get the logger
 
-	logger := slog.New(sMultiTargetHandler).WithGroup("example-1")
+	logger = logger.WithGroup("example-1")
 	logger.Info("info message", slog.String("key", "value"))
 	logger.Error("error message", slog.Any("error", errors.New("error message")))
 
@@ -106,11 +107,12 @@ func example2() {
 	outputHandler := slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo})
 	errorOutputHandler := slog.NewJSONHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelError})
 
-	sMultiTargetHandler := slogmultiplehandlers.New().
-		WithOutputHandlers(outputHandler).
-		WithErrorOutputHandlers(outputHandler, errorOutputHandler)
+	logger := slogmultiplehandlers.New().
+		WithOutputHandlers(outputHandler). // comma separated list of handlers
+		WithErrorOutputHandlers(outputHandler, errorOutputHandler). // comma separated list of handlers
+		Logger() // always end the factory builder with Logger() to get the logger
 
-	logger := slog.New(sMultiTargetHandler).WithGroup("example-2")
+	logger = logger.WithGroup("example-2")
 	logger.Info("info message", slog.String("key", "value"))
 	logger.Error("error message", slog.Any("error", errors.New("error message")))
 

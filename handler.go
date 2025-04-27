@@ -29,6 +29,10 @@ func (h *MultiTargetHandler) WithErrorOutputHandlers(handlers ...slog.Handler) *
 	return h
 }
 
+func (h *MultiTargetHandler) Logger() *slog.Logger {
+	return slog.New(h)
+}
+
 func (h *MultiTargetHandler) Enabled(ctx context.Context, level slog.Level) bool {
 	if level >= slog.LevelError {
 		for i := range h.errorOutputHandlers {
